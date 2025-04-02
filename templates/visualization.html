@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Data Visualization</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Fake News Dataset Analysis</h1>
+        
+        {% if error %}
+            <div class="error-message">
+                <span class="material-symbols-rounded">error</span>
+                <p>{{ error }}</p>
+            </div>
+        {% else %}
+            <!-- Statistics Section -->
+            <div class="stats-container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Articles</h3>
+                        <p class="stat-value">{{ stats.total_articles }}</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Fake News</h3>
+                        <p class="stat-value">{{ stats.fake_count }}</p>
+                        <p class="stat-subtitle">{{ stats.fake_percentage }}%</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Real News</h3>
+                        <p class="stat-value">{{ stats.real_count }}</p>
+                        <p class="stat-subtitle">{{ stats.real_percentage }}%</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Avg. Fake Length</h3>
+                        <p class="stat-value">{{ stats.avg_fake_length }}</p>
+                        <p class="stat-subtitle">characters</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Avg. Real Length</h3>
+                        <p class="stat-value">{{ stats.avg_real_length }}</p>
+                        <p class="stat-subtitle">characters</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Avg. Words</h3>
+                        <p class="stat-value">Fake: {{ stats.avg_fake_words }}</p>
+                        <p class="stat-subtitle">Real: {{ stats.avg_real_words }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visualizations Section -->
+            <div class="visualizations-container">
+                <!-- Distribution Chart -->
+                <div class="chart-section">
+                    <h3>News Distribution</h3>
+                    <div class="chart-container">
+                        <img src="{{ url_for('static', filename=images.distribution) }}" alt="News Distribution Chart" class="chart">
+                    </div>
+                </div>
+
+                <!-- Word Frequency Chart -->
+                <div class="chart-section">
+                    <h3>Most Common Words</h3>
+                    <div class="chart-container">
+                        <img src="{{ url_for('static', filename=images.word_freq) }}" alt="Word Frequency Chart" class="chart">
+                    </div>
+                </div>
+
+                <!-- Text Length Box Plot -->
+                <div class="chart-section">
+                    <h3>Text Length Distribution</h3>
+                    <div class="chart-container">
+                        <img src="{{ url_for('static', filename=images.length_boxplot) }}" alt="Text Length Box Plot" class="chart">
+                    </div>
+                </div>
+
+                <!-- Word Count vs Text Length -->
+                <div class="chart-section">
+                    <h3>Word Count vs Text Length</h3>
+                    <div class="chart-container">
+                        <img src="{{ url_for('static', filename=images.scatter_plot) }}" alt="Word Count vs Text Length" class="chart">
+                    </div>
+                </div>
+
+                <!-- Average Word Length Distribution -->
+                <div class="chart-section">
+                    <h3>Average Word Length Distribution</h3>
+                    <div class="chart-container">
+                        <img src="{{ url_for('static', filename=images.word_length_dist) }}" alt="Average Word Length Distribution" class="chart">
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="navigation-buttons">
+            <a href="/"><button class="back-btn">Back to Home</button></a>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>📰 Fake News Detector</h1>
+        <p class="subtitle">Enter a news headline to check if it's real or fake.</p>
+
+        <div class="input-section">
+            <textarea id="newsInput" placeholder="Type your news here..."></textarea>
+            <button onclick="checkNews()">
+                <span class="material-symbols-rounded">search</span>
+                Analyze News
+            </button>
+        </div>
+
+        <div id="result"></div>
+
+        <div class="navigation-buttons">
+            <a href="/dataset-visual">
+                <button class="analysis-btn">
+                    <span class="material-symbols-rounded">analytics</span>
+                    View Dataset Analysis
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function checkNews() {
+            let newsText = document.getElementById("newsInput").value;
+            fetch("/analyze", {
+                method: "POST",
+                body: JSON.stringify({ news: newsText }),
+                headers: { "Content-Type": "application/json" }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerText = data.result;
+            });
+        }
+    </script>
+</body>
+</html> 
